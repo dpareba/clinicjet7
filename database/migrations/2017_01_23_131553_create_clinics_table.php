@@ -29,6 +29,7 @@ class CreateClinicsTable extends Migration
             $table->string('phoneprimarylandtel',8);
             $table->string('phonealternate',10);
             $table->string('email');
+            $table->string('website');
             $table->smallInteger('cliniccode')->unsigned();
             $table->tinyInteger('margin_top')->default(10)->unsigned();
             $table->tinyInteger('margin_bottom')->default(10)->unsigned();

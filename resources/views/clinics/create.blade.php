@@ -2,17 +2,20 @@
 @section('title')
 | Create New Clinic
 @stop
+
 @section('content')
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">New Clinic Registration (Please complete these details so patients can search for you on the net.)</div>
+                <div class="panel-heading"><b>New Clinic Registration</b> <i style="color: red;">(Please complete these details so patients can search for you on the net.)</i></div>
                 <div class="panel-body">
                    @include('partials.flash', ['some' => 'data'])
                    <form data-parsley-validate class="form-horizontal" role="form" method="POST" action="{{ route('clinics.store') }}">
                     {{ csrf_field() }}
 
+                      
+                        
                     <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                         <label for="name" class="col-md-4 control-label">Clinic Name</label>
 
@@ -195,7 +198,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">Clinic E-Mail</label>
+                            <label for="email" class="col-md-4 control-label">Clinic/Hospital E-Mail</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}"   placeholder="Clinic e-mail Address (Optional)">
@@ -203,6 +206,20 @@
                                 @if ($errors->has('email'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('email') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                        </div>
+
+                         <div class="form-group{{ $errors->has('website') ? ' has-error' : '' }}">
+                            <label for="website" class="col-md-4 control-label">Clinic/Hospital Website</label>
+
+                            <div class="col-md-6">
+                                <input id="website" type="text" class="form-control" name="website" value="{{ old('website') }}"   placeholder="Clinic Website Address (Optional)">
+
+                                @if ($errors->has('website'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('website') }}</strong>
                                 </span>
                                 @endif
                             </div>

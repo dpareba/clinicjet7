@@ -192,6 +192,7 @@ public function newUser(){
         $clinic->phoneprimarylandtel = $request->phoneprimarylandtel;
         $clinic->phonealternate = $request->phonealternate;
         $clinic->email = $request->email;
+        $clinic->website = $request->website;
         $clinic->cliniccode = rand(1000,9999);
         $clinic->clinicadmin_id = Auth::user()->id;
         $clinic->save();
