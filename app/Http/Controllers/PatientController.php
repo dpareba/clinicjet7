@@ -59,6 +59,8 @@ class PatientController extends Controller
         //dd($request);
         $this->validate($request,[
             'name'=>'required|max:255',
+            'midname'=>'required|max:255',
+            'surname'=>'required|max:255',
             'dob'=>'date_format:d/m/Y|before:tomorrow',
             'gender'=>'required|max:6',
             'bloodgroup'=>'required|max:10',
@@ -68,7 +70,9 @@ class PatientController extends Controller
             'phonealternate'=>'max:15',
             'email'=>'email'
             ],[
-            'name.required'=>'Full Name is required to be entered',
+            'name.required'=>'First Name is required to be entered',
+            'midname.required'=>'Middle Name is required to be entered',
+            'surname.required'=>'Surname is required to be entered',
             'name.alpha'=>'The Name may only contain alphabets',
             'allergies.required'=>'Please enter know allergies.Enter Not known otherwise.',
             'phoneprimary.required'=>'Primary Phone Number is required (enter 0000000000) if not known',
@@ -86,6 +90,8 @@ class PatientController extends Controller
        // dd($clinic);
         $patient = new Patient;
         $patient->name = Str::upper($request->name);
+        $patient->midname = Str::upper($request->midname);
+        $patient->surname = Str::upper($request->surname);
         if ($request->dob == "") {
             $input = '01/01/1900';
         }else{
@@ -169,6 +175,8 @@ class PatientController extends Controller
     {
        $this->validate($request,[
         'name'=>'required|max:255',
+        'midname'=>'required|max:255',
+        'surname'=>'required|max:255',
         'gender'=>'required|max:6',
         'bloodgroup'=>'required|max:10',
         'phoneprimary'=>'max:15',
@@ -181,6 +189,8 @@ class PatientController extends Controller
 
        $patient = Patient::find($id);
        $patient->name = $request->name;
+       $patient->midname = $request->midname;
+       $patient->surname = $request->surname;
        $patient->gender = $request->gender;
        $patient->phoneprimary = $request->phoneprimary;
        $patient->phonealternate = $request->phonealternate;

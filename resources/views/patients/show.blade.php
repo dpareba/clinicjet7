@@ -17,7 +17,7 @@ View/Edit Patients Details
     <div class="box box-widget widget-user">
       <!-- Add the bg color to the header using any of the bg-* classes -->
       <div class="widget-user-header bg-primary">
-        <h3 class="widget-user-username">{{$patient->name}}</h3>
+        <h3 class="widget-user-username">{{$patient->name}} {{$patient->midname}} {{$patient->surname}}</h3>
         <h5 class="widget-user-desc">Registered:{{date('M j, Y',strtotime($patient->created_at))}}</h5>
       </div>
       <div class="widget-user-image">

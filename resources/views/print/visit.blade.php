@@ -34,14 +34,14 @@
 	{{-- <div class="absolute">Date: {{$visit->created_at->toDateString()}}</div> --}}
 	<div class="absolute">Date: {{$visit->created_at->format('d/m/Y')}}</div>
 	<div>Patient Id: <b>{{$visit->patient->patientcode}}</b></div>
-	<div class="absolute">{{$visit->patient->gender}} Age: 
+	<div class="absolute"><b>{{$visit->patient->gender}}</b> Age: 
 		@if ($visit->patient->dob != "1900-01-01 00:00:00")
 		{{$visit->patient->dob->diff(Carbon::now())->format('%y')}}
 		@else
 		Date of Birth Not Provided
 		@endif
 	</div>
-	<div>Patient Name: <b>{{$visit->patient->name}}</b></div>
+	<div>Patient Name: <b>{{$visit->patient->name}} {{$visit->patient->midname}} {{$visit->patient->surname}}</b></div>
 	<div class="cc"><b>Chief Complaints: </b>{{$visit->chiefcomplaints}}</div>
 	<div class="cc"><b>Findings: </b>{{$visit->examinationfindings}}</div>
 	<div class="cc"><b>History: </b>{{$visit->patienthistory}}</div>

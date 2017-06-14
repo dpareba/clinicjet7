@@ -16,6 +16,8 @@ class CreatePatientsTable extends Migration
         Schema::create('patients', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->index();
+            $table->string('midname')->index();
+            $table->string('surname')->index();
             $table->date('dob');
             $table->string('gender',6);
             $table->string('phoneprimary',15)->index();

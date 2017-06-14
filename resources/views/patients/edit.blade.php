@@ -24,13 +24,33 @@
                     <input type="hidden" name="_token" value="{{csrf_token()}}">
                     <input type="hidden" name="_method" value="PUT">
                     <div class="form-group {{ $errors->has('name')?'has-error':''}}">
-                      <label class="control-label" for="name">Full Name</label>
+                      <label class="control-label" for="name">First Name</label>
                       <div class="input-group">
                       	 <span class="input-group-addon"><i class="fa fa-id-badge"></i></span>
                       	<input event.preventDefault(); style="text-transform: uppercase;" autofocus="" required="" value="{{$patient->name}}" autofocus="" type="text" class="form-control" maxlength="255" id="name" name="name"   data-parsley-required-message="Patient Name cannot be left blank">
                       </div>
                       
                       <span class="help-block">{{$errors->first('name')}}</span>
+                    </div>
+
+                      <div class="form-group {{ $errors->has('midname')?'has-error':''}}">
+                      <label class="control-label" for="midname">Middle Name/Father's Name/Husband's Name</label>
+                      <div class="input-group">
+                         <span class="input-group-addon"><i class="fa fa-id-badge"></i></span>
+                        <input event.preventDefault(); style="text-transform: uppercase;"  required="" value="{{$patient->midname}}" autofocus="" type="text" class="form-control" maxlength="255" id="midname" name="midname"   data-parsley-required-message="Patient Name cannot be left blank">
+                      </div>
+                      
+                      <span class="help-block">{{$errors->first('midname')}}</span>
+                    </div>
+
+                       <div class="form-group {{ $errors->has('surname')?'has-error':''}}">
+                      <label class="control-label" for="surname">Last Name/Family Name/Surname</label>
+                      <div class="input-group">
+                         <span class="input-group-addon"><i class="fa fa-id-badge"></i></span>
+                        <input event.preventDefault(); style="text-transform: uppercase;"  required="" value="{{$patient->surname}}" autofocus="" type="text" class="form-control" maxlength="255" id="surname" name="surname"   data-parsley-required-message="Patient Name cannot be left blank">
+                      </div>
+                      
+                      <span class="help-block">{{$errors->first('surname')}}</span>
                     </div>
 
                     <div class="form-group {{ $errors->has('gender')?'has-error':''}}">
