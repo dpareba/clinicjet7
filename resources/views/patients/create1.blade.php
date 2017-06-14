@@ -154,7 +154,7 @@ Register new patients in clinic
 						</div>
 					</div>{{-- .row --}}
 					<div class="row">
-						<div class="col-md-12 col-xs-12">
+						<div class="col-md-6 col-xs-12">
 							<div class="form-group {{ $errors->has('email')?'has-error':''}}">
 								<label class="control-label" for="email">Email Address</label>
 								<div class="input-group">
@@ -162,6 +162,16 @@ Register new patients in clinic
 									<input value="{{old('email')}}" type="email" class="form-control" id="email" name="email" placeholder="Enter Email Address">
 								</div>
 								<span class="help-block">{{$errors->first('email')}}</span>
+							</div>
+						</div>
+						<div class="col-md-6 col-xs-12">
+							<div class="form-group {{ $errors->has('idproof')?'has-error':''}}">
+								<label class="control-label" for="idproof">Enter Id Proof</label>
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+									<input value="{{old('idproof')}}" type="text" class="form-control" id="idproof" name="idproof" placeholder="Please Enter AAdhar Number">
+								</div>
+								<span class="help-block">{{$errors->first('idproof')}}</span>
 							</div>
 						</div>
 					</div>{{-- .row --}}

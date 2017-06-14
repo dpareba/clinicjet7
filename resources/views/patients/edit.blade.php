@@ -139,6 +139,15 @@
                       </div>
                  		<span class="help-block">{{$errors->first('email')}}</span>
                     </div>
+
+                    <div class="form-group {{ $errors->has('idproof')?'has-error':''}}">
+                      <label class="control-label" for="idproof">Enter Id Proof</label>
+                      <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                        <input value="{{$patient->idproof}}" type="text" class="form-control" id="idproof" name="idproof" placeholder="Please Enter AAdhar Number">
+                      </div>
+                    <span class="help-block">{{$errors->first('idproof')}}</span>
+                    </div>
                      {{--  <button type="submit" class="btn btn-success btn-block btn-sm">Register New Patient</button>
                     <br> --}}
                    {{-- </form> --}}

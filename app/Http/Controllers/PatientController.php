@@ -109,6 +109,7 @@ class PatientController extends Controller
         $patient->allergies = Str::upper($request->allergies);
         $patient->bloodgroup = $request->bloodgroup;
         $patient->patientcode = rand(1000,9999);
+        $patient->idproof = $request->idproof;
         $patient->created_by = Auth::user()->id;
         $patient->save();
         $patient->clinics()->attach($clinic);
@@ -198,6 +199,7 @@ class PatientController extends Controller
        $patient->address = $request->address;
        $patient->allergies = $request->allergies;
        $patient->bloodgroup = $request->bloodgroup;
+       $patient->idproof = $request->idproof;
        $patient->save();
 
        Session::flash('message','Success!!');

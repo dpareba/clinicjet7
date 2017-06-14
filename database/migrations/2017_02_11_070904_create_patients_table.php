@@ -26,6 +26,7 @@ class CreatePatientsTable extends Migration
             $table->text('address');
             $table->text('allergies');
             $table->string('bloodgroup',10);
+            $table->string('idproof');
             $table->smallInteger('patientcode')->unsigned()->unique();
             $table->integer('created_by')->unsigned();
             $table->foreign('created_by')->references('id')->on('users');
