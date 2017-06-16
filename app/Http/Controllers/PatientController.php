@@ -57,6 +57,35 @@ class PatientController extends Controller
     public function store(Request $request)
     {
         //dd($request);
+        if ($request->cbage == "on") {
+            $this->validate($request,[
+            'approxage'=>'required',
+            'name'=>'required|max:255',
+            'midname'=>'required|max:255',
+            'surname'=>'required|max:255',
+            'dob'=>'date_format:d/m/Y|before:tomorrow',
+            'gender'=>'required|max:6',
+            'bloodgroup'=>'required|max:10',
+            'allergies'=>'required',
+            'address'=>'required',
+            'phoneprimary'=>'required|digits:10|unique:patients,phoneprimary',
+            'phonealternate'=>'max:15',
+            'email'=>'email'
+            ],[
+            'approxage.required'=>'Approximate age of patient not entered',
+            'name.required'=>'First Name is required to be entered',
+            'midname.required'=>'Middle Name is required to be entered',
+            'surname.required'=>'Surname is required to be entered',
+            'name.alpha'=>'The Name may only contain alphabets',
+            'allergies.required'=>'Please enter know allergies.Enter Not known otherwise.',
+            'phoneprimary.required'=>'Primary Phone Number is required (enter 0000000000) if not known',
+            'phoneprimary.digits'=>'Phone number needs to contain 10 digits',
+            'phoneprimary.unique'=>'Patient with this phone number is already registered',
+            'phoneprimary.unique'=>'This Phone Number is already registered.',
+            'dob.date'=>'The Date of Birth should be in mm/dd/yyyy format.',
+            'dob.before'=>'The Date of Birth cannot be later than the date today.'
+            ]);
+        }else{
         $this->validate($request,[
             'name'=>'required|max:255',
             'midname'=>'required|max:255',
@@ -82,6 +111,7 @@ class PatientController extends Controller
             'dob.date'=>'The Date of Birth should be in mm/dd/yyyy format.',
             'dob.before'=>'The Date of Birth cannot be later than the date today.'
             ]);
+            }
 
         //$cliniccode = Session::get('cliniccode');
         $clinic = Clinic::where(['cliniccode'=>Session::get('cliniccode')])->first();
@@ -97,6 +127,15 @@ class PatientController extends Controller
         }else{
             $input = $request->dob;
         }
+        // if($request->cbage == "on"){
+        //     $patient->isapproxage = true;
+        //     $patient->approxdob = $request->approxdob;
+        //     $patient->approxage = $request->approxage;
+        // }else{
+        //     $patient->isapproxage = false;
+        //     $patient->approxdob = '01/01/1900';
+        //     $patient->approxage = '';
+        // }
         //$format = 'm/d/Y';
         $format = 'd/m/Y';
         $date = Carbon::createFromFormat($format,$input);

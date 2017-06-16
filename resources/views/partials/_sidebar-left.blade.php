@@ -292,6 +292,15 @@
         <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
         <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
         <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li> --}}
+
+          <li class="{{Request::is('test')?'active':''}}">
+          <a href="{{route('tests.index')}}">
+            <i class="fa fa-user-circle"></i> <span>Test</span>
+            <span class="pull-right-container">
+              <small class="label pull-right bg-blue">Pro</small>
+            </span>
+          </a>
+        </li>
       </ul>
     </section>
     <!-- /.sidebar -->

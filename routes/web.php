@@ -137,6 +137,7 @@ Route::get('medicines.index/{id}',[
 
 Route::resource('pathologies','PathologyController');
 
+Route::resource('tests','TestController');
 
 
 

@@ -25,6 +25,7 @@
 <script src="{{asset('js/clipboard.min.js')}}"></script>
 <script src="{{asset('js/lightbox.min.js')}}"></script>
 <script src="{{asset('js/moment.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/icheck.min.js"></script>
 
 @yield('scripts')
 @yield('js')

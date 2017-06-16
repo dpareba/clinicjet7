@@ -19,6 +19,9 @@ class CreatePatientsTable extends Migration
             $table->string('midname')->index();
             $table->string('surname')->index();
             $table->date('dob');
+            $table->boolean('isapproxage')->default(false);
+            $table->string('approxage')->nullable();
+            //$table->date('approxdob');
             $table->string('gender',6);
             $table->string('phoneprimary',15)->index();
             $table->string('phonealternate',15)->index();

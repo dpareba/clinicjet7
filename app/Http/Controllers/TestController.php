@@ -4,12 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-use App\Pathology;
-use Illuminate\Support\Facades\Input;
-use Auth;
-
-class PathologyController extends Controller
+class TestController extends Controller
 {
     public function __construct(){
         $this->middleware('auth');
@@ -21,22 +16,7 @@ class PathologyController extends Controller
      */
     public function index()
     {
-        $q = Input::get('q');
-        $id = Auth::user()->id;
-        //$pathologies = Pathology::where('name','LIKE','q%')->get();
-        $pathologies = Pathology::where(function($query) use($q){
-            $query->where('name','LIKE',"$q%")->where('user_id','=','1');
-        })->orWhere(function($query) use($q,$id){
-            $query->where('name','LIKE',"$q%")->where('user_id','=',$id);
-        })->get();
-
-        //$pathologies = Pathology::all();
-        foreach ($pathologies as $pathology) {
-            $path = $pathology->name;
-            $formatted_tags[] = ['id'=>$pathology->id,'text'=>$path];
-        }
-        //$formatted_tags[] = ['id' => 'Dilip', 'text' => 'Pareba'];
-        return response()->json($formatted_tags);
+        return view('tests.index');
     }
 
     /**
@@ -57,17 +37,7 @@ class PathologyController extends Controller
      */
     public function store(Request $request)
     {
-       $this->validate($request,[
-            'pathname'=>'required|unique:pathologies,name'
-        ],[
-            'pathname.required'=>'Investigation Name is required',
-            'pathname.unique'=>'Investigation Name already exists'
-        ]);
-       $pathology = new Pathology;
-       $pathology->name = $request->pathname;
-       $pathology->category_id = '45';
-       $pathology->user_id = Auth::user()->id;
-       $pathology->save();
+        //
     }
 
     /**
