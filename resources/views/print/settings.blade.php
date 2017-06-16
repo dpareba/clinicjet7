@@ -21,14 +21,14 @@ Edit Print Settings
 					<div class="row">
 						<div class="col-md-6 col-xs-12 text-center">
 							<div class="form-group {{ $errors->has('margin_top')?'has-error':''}}">
-								<label for="margin_top">Margin Top(in mm)</label>
+								<label for="margin_top">Margin Top(in centimeters)</label>
 								<input type="text" id="margin_top" name="margin_top" class="form-control text-center" value="{{$clinic->margin_top}}">
 								<span class="help-block">{{$errors->first('margin_top')}}</span>
 							</div>
 						</div>
 						<div class="col-md-6 col-xs-12 text-center">
 							<div class="form-group {{ $errors->has('margin_bottom')?'has-error':''}}">
-								<label for="margin_bottom">Margin Bottom(in mm)</label>
+								<label for="margin_bottom">Margin Bottom(in centimeters)</label>
 								<input type="text" id="margin_bottom" name="margin_bottom" class="form-control text-center" value="{{$clinic->margin_bottom}}">
 								<span class="help-block">{{$errors->first('margin_bottom')}}</span>
 							</div>

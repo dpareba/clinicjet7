@@ -105,7 +105,8 @@
 			@endforeach
 		</ul>
 	</div>
-	<div class="absolute"><b>Signature:________________________</b></div>
+	<div class="absolute"><b>Signature:__________________________________</b></div>
+
 	<br>
 	<div></div>
 	<br>

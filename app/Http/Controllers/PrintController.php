@@ -45,15 +45,15 @@ class PrintController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'margin_top'=>'required|digits_between:0,255',
-            'margin_bottom'=>'required|integer',
+            'margin_top'=>'required|integer|between:0,10',
+            'margin_bottom'=>'required|digits_between:0,10',
             // 'margin_right'=>'required|integer',
             // 'margin_left'=>'required|integer'
             ],[
             'margin_top.required'=>'Top margin value cannot be blank',
-            'margin_top.digits_between'=>'Value should be an integer between 0 and 255',
+            'margin_top.digits_between'=>'Value should be an integer between 0 and 10',
             'margin_bottom.required'=>'Bottom margin value cannot be blank',
-            'margin_bottom.digits_between'=>'Value should be an integer between 0 and 255'
+            'margin_bottom.digits_between'=>'Value should be an integer between 0 and 10'
             // 'margin_right.required'=>'Right margin value cannot be blank',
             // 'margin_right.digits_between'=>'Value should be an integer between 0 and 255',
             // 'margin_left.required'=>'Left margin value cannot be blank',
@@ -61,6 +61,9 @@ class PrintController extends Controller
             ]);
 
         $clinic = Clinic::where(['cliniccode'=>Session::get('cliniccode')])->first();
+        //getting value from user in cm
+        //converting into mm
+       
         $clinic->margin_top = $request->margin_top;
         $clinic->margin_bottom = $request->margin_bottom;
         // $clinic->margin_left = $request->margin_left;
@@ -85,10 +88,10 @@ class PrintController extends Controller
             'margin_header'=> 10,
             'default_font_size'=> '10',
             'default_font'=> 'sans-serif',
-            'margin_top' => $clinic->margin_top,
-            'margin_bottom' => $clinic->margin_bottom,
-            'margin_left'=> $clinic->margin_left,
-            'margin_right'=> $clinic->margin_right,
+            'margin_top' => $clinic->margin_top*10,
+            'margin_bottom' => $clinic->margin_bottom*10,
+            'margin_left'=> $clinic->margin_left*10,
+            'margin_right'=> $clinic->margin_right*10,
             'orientation'=> 'P'
             ]);
         return $pdf->stream('document.pdf');
