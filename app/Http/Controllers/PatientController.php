@@ -127,19 +127,21 @@ class PatientController extends Controller
         }else{
             $input = $request->dob;
         }
-        // if($request->cbage == "on"){
-        //     $patient->isapproxage = true;
-        //     $patient->approxdob = $request->approxdob;
-        //     $patient->approxage = $request->approxage;
-        // }else{
-        //     $patient->isapproxage = false;
-        //     $patient->approxdob = '01/01/1900';
-        //     $patient->approxage = '';
-        // }
+        if($request->cbage == "on"){
+            $patient->isapproxage = true;
+            $approxdobinput = $request->approxdob;
+            $patient->approxage = $request->approxage;
+        }else{
+            $patient->isapproxage = false;
+            $approxdobinput = '01/01/1900';
+            $patient->approxage = '';
+        }
         //$format = 'm/d/Y';
         $format = 'd/m/Y';
         $date = Carbon::createFromFormat($format,$input);
         $patient->dob = $date;
+        $approxdate = Carbon::createFromFormat($format,$approxdobinput);
+        $patient->approxdob = $approxdate;
         $patient->gender = Str::upper($request->gender);
         $patient->phoneprimary = $request->phoneprimary;
         $patient->phonealternate = $request->phonealternate;

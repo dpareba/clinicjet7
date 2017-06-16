@@ -28,12 +28,22 @@ Patient Visit Details
 				</div>
 				<!-- /.widget-user-image -->
 				<h3 class="widget-user-username">{{$patient->name}} {{$patient->midname}} {{$patient->surname}}</h3>
-				<h5 class="widget-user-desc"><span class="badge bg-gray">Created On: {{$patient->created_at->format('D, d F Y')}}</span> | <span class="badge bg-gray">Created By: DR. {{$user->name}}</span> | @if ($patient->dob != "1900-01-01 00:00:00")
-					<span class="badge bg-gray">Patient Age: {{-- {{$patient->dob->diffInYears()}} --}} {{$patient->dob->diff(Carbon::now())->format('%y Years, %m Months and %d Days')}}</span>
+				<h5 class="widget-user-desc"><span class="badge bg-gray">Created On: {{$patient->created_at->format('D, d F Y')}}</span> | <span class="badge bg-gray">Created By: DR. {{$user->name}}</span> | 
+					@if ($patient->isapproxage)
+					<span class="badge bg-gray">Approximate Patient Age: {{$patient->approxage}} Years</span>
+					@else
+					@if ($patient->dob != "1900-01-01 00:00:00")
+					<span class="badge bg-gray">Patient Age: {{$patient->dob->diff(Carbon::now())->format('%y Years, %m Months and %d Days')}}</span>
 					@else
 					<span class="badge bg-gray">Patient Age: Date of Birth Not Provided</span>
-					@endif </h5>
-
+					@endif 
+					@endif
+					
+					{{-- @if ($patient->dob != "1900-01-01 00:00:00")
+					<span class="badge bg-gray">Patient Age: {{$patient->dob->diff(Carbon::now())->format('%y Years, %m Months and %d Days')}}</span>
+					@else
+					<span class="badge bg-gray">Patient Age: Date of Birth Not Provided</span>
+					@endif --}} </h5>
 				</div>
 			</div>
 			<!-- /.widget-user -->
@@ -187,10 +197,10 @@ Patient Visit Details
 									@endif
 									
 									@if ($visit->systolic != "" && $visit->diastolic !="")
-												<div>
-													<strong>BP </strong>{{$visit->systolic}}/{{$visit->diastolic}} mm Hg
-												</div>	
-												<br>
+									<div>
+										<strong>BP </strong>{{$visit->systolic}}/{{$visit->diastolic}} mm Hg
+									</div>	
+									<br>
 									@endif
 
 									<dl>
@@ -204,15 +214,15 @@ Patient Visit Details
 
 									
 									@if (Auth::user()->id == $visit->user_id) 
-						
+
 									<div class="box-footer clearfix">
 										
 										@if ($visit->created_at->diffInHours(Carbon::now()) <= 36)
-											<form action="{{route('visits.edit',$visit->id)}}" method="POST">
-												{{csrf_field()}}
-												<button type="submit" class="btn btn-warning pull-left">Edit</button>
-											</form>
-											{{-- <a href="{{route('visits.edit',$visit->id)}}" class="btn btn btn-warning  pull-left" >Edit</a> --}}
+										<form action="{{route('visits.edit',$visit->id)}}" method="POST">
+											{{csrf_field()}}
+											<button type="submit" class="btn btn-warning pull-left">Edit</button>
+										</form>
+										{{-- <a href="{{route('visits.edit',$visit->id)}}" class="btn btn btn-warning  pull-left" >Edit</a> --}}
 										@endif
 										
 										<a href="{{route('print.visits',$visit->id)}}" class="btn btn btn-success  pull-right" target="_blank">Print</a>

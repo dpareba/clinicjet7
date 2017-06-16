@@ -25,12 +25,23 @@ View/Edit Patients Details
       </div>
       <div class="box-footer no-padding">
         <ul class="nav nav-stacked">
+          <li><a href="#"><b>Patient Details</b><span class="pull-right badge bg-default"></span></a></li>
+
           <li><a href="#">Patient Code <span class="pull-right badge bg-default">{{$patient->patientcode}}</span></a></li>
+          @if ($patient->isapproxage)
+          <li><a href="#">Approximate Patient Age<span class="pull-right badge bg-default">{{$patient->approxage}} Years</span></a></li>
+          @else
           @if ($patient->dob == "1900-01-01 00:00:00")
           <li><a href="#">Patient Age<span class="pull-right badge bg-default">Date of Birth Not Provided</span></a></li>
           @else
           <li><a href="#">Patient Age<span class="pull-right badge bg-default">{{$patient->dob->diff(Carbon::now())->format('%y Years, %m Months and %d Days')}}</span></a></li>
           @endif
+          @endif
+          {{-- @if ($patient->dob == "1900-01-01 00:00:00")
+          <li><a href="#">Patient Age<span class="pull-right badge bg-default">Date of Birth Not Provided</span></a></li>
+          @else
+          <li><a href="#">Patient Age<span class="pull-right badge bg-default">{{$patient->dob->diff(Carbon::now())->format('%y Years, %m Months and %d Days')}}</span></a></li>
+          @endif --}}
           <li><a href="#">Gender <span class="pull-right badge bg-default">{{$patient->gender}}</span></a></li>
           {{--  <li><a href="#">Known Allergies <span class="pull-right badge bg-purple">{{$patient->allergies}}</span></a></li> --}}
           <li><a href="#">Blood Group <span class="pull-right badge bg-default">{{$patient->bloodgroup}}</span></a></li>

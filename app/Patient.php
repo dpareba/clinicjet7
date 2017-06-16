@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Patient extends Model
 {
-	protected $dates = ['dob'];
+	protected $dates = ['dob','approxdob'];
 
     public function clinics(){
     	return $this->belongsToMany('App\Clinic')->withTimestamps();

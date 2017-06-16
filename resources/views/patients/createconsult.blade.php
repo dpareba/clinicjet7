@@ -32,11 +32,21 @@ Add Consultation for Patient Visit
 				</div>
 				<!-- /.widget-user-image -->
 				<h3 class="widget-user-username">{{$patient->name}} {{$patient->midname}} {{$patient->surname}}</h3>
-				<h5 class="widget-user-desc"><span class="badge bg-gray">Created On: {{$patient->created_at->format('D, d F Y')}}</span> | <span class="badge bg-gray">Created By: DR. {{$user->name}}</span> | @if ($patient->dob != "1900-01-01 00:00:00")
-					<span class="badge bg-gray">Patient Age: {{-- {{$patient->dob->diffInYears()}} --}} {{$patient->dob->diff(Carbon::now())->format('%y Years, %m Months and %d Days')}}</span>
+				<h5 class="widget-user-desc"><span class="badge bg-gray">Created On: {{$patient->created_at->format('D, d F Y')}}</span> | <span class="badge bg-gray">Created By: DR. {{$user->name}}</span> | 
+					@if ($patient->isapproxage)
+					<span class="badge bg-gray">Approximate Patient Age: {{$patient->approxage}} Years</span>
+					@else
+					@if ($patient->dob != "1900-01-01 00:00:00")
+					<span class="badge bg-gray">Patient Age: {{$patient->dob->diff(Carbon::now())->format('%y Years, %m Months and %d Days')}}</span>
 					@else
 					<span class="badge bg-gray">Patient Age: Date of Birth Not Provided</span>
-					@endif </h5>
+					@endif 
+					@endif
+				{{-- @if ($patient->dob != "1900-01-01 00:00:00")
+					<span class="badge bg-gray">Patient Age: {{$patient->dob->diff(Carbon::now())->format('%y Years, %m Months and %d Days')}}</span>
+					@else
+					<span class="badge bg-gray">Patient Age: Date of Birth Not Provided</span>
+					@endif --}} </h5>
 
 				</div>
 			</div>
