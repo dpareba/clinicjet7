@@ -16,7 +16,7 @@ class CreatePatientsTable extends Migration
         Schema::create('patients', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->index();
-            $table->string('midname')->index();
+            $table->string('midname')->nullable()->index();
             $table->string('surname')->index();
             $table->date('dob');
             $table->boolean('isapproxage')->default(false);
@@ -27,6 +27,9 @@ class CreatePatientsTable extends Migration
             $table->string('phonealternate',15)->index();
             $table->string('email');
             $table->text('address');
+            $table->string('patientstate');
+            $table->string('patientcity');
+            $table->string('patientpin');
             $table->text('allergies');
             $table->string('bloodgroup',10);
             $table->string('idproof');

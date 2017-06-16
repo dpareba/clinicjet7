@@ -13,6 +13,7 @@ use App\Pathology;
 use Session;
 use Carbon\Carbon;
 use Illuminate\Support\Str; //Added
+use App\State;
 
 class PatientController extends Controller
 {
@@ -45,7 +46,8 @@ class PatientController extends Controller
      */
     public function create()
     {
-        return view('patients.create1');
+        $states = State::all();
+        return view('patients.create1')->withStates($states);
     }
 
     /**
@@ -61,53 +63,65 @@ class PatientController extends Controller
             $this->validate($request,[
             'approxage'=>'required',
             'name'=>'required|max:255',
-            'midname'=>'required|max:255',
+            //'midname'=>'required|max:255',
+            'midname'=>'max:255',
             'surname'=>'required|max:255',
             'dob'=>'date_format:d/m/Y|before:tomorrow',
             'gender'=>'required|max:6',
             'bloodgroup'=>'required|max:10',
             'allergies'=>'required',
             'address'=>'required',
-            'phoneprimary'=>'required|digits:10|unique:patients,phoneprimary',
-            'phonealternate'=>'max:15',
+            'patientstate'=>'required',
+            'patientcity'=>'required',
+            'patientpin'=>'required|min:6|max:6',
+            // 'phoneprimary'=>'required|digits:10|unique:patients,phoneprimary',
+            // 'phonealternate'=>'required|digits:10|unique:patients,phonealternate',
+            'phoneprimary'=>'required|digits:10',
+            'phonealternate'=>'required|digits:10',
             'email'=>'email'
             ],[
             'approxage.required'=>'Approximate age of patient not entered',
             'name.required'=>'First Name is required to be entered',
-            'midname.required'=>'Middle Name is required to be entered',
+            //'midname.required'=>'Middle Name is required to be entered',
             'surname.required'=>'Surname is required to be entered',
             'name.alpha'=>'The Name may only contain alphabets',
             'allergies.required'=>'Please enter know allergies.Enter Not known otherwise.',
-            'phoneprimary.required'=>'Primary Phone Number is required (enter 0000000000) if not known',
+            'phoneprimary.required'=>'Primary Phone Number is compulsory',
             'phoneprimary.digits'=>'Phone number needs to contain 10 digits',
-            'phoneprimary.unique'=>'Patient with this phone number is already registered',
-            'phoneprimary.unique'=>'This Phone Number is already registered.',
+            // 'phoneprimary.unique'=>'Patient with this phone number is already registered',
+            'phonealternate.required'=>'Emergency Phone Number is compulsory',
+            'phonealternate.digits'=>'Phone number needs to contain 10 digits',
+            // 'phonealternate.unique'=>'Patient with this phone number is already registered',
             'dob.date'=>'The Date of Birth should be in mm/dd/yyyy format.',
             'dob.before'=>'The Date of Birth cannot be later than the date today.'
             ]);
         }else{
         $this->validate($request,[
             'name'=>'required|max:255',
-            'midname'=>'required|max:255',
+            'midname'=>'max:255',
             'surname'=>'required|max:255',
             'dob'=>'date_format:d/m/Y|before:tomorrow',
             'gender'=>'required|max:6',
             'bloodgroup'=>'required|max:10',
             'allergies'=>'required',
             'address'=>'required',
-            'phoneprimary'=>'required|digits:10|unique:patients,phoneprimary',
-            'phonealternate'=>'max:15',
+            'patientstate'=>'required',
+            'patientcity'=>'required',
+            'patientpin'=>'required|min:6|max:6',
+            // 'phoneprimary'=>'required|digits:10|unique:patients,phoneprimary',
+            // 'phonealternate'=>'required|digits:10|unique:patients,phonealternate',
+            'phoneprimary'=>'required|digits:10',
+            'phonealternate'=>'required|digits:10',
             'email'=>'email'
             ],[
             'name.required'=>'First Name is required to be entered',
-            'midname.required'=>'Middle Name is required to be entered',
+            //'midname.required'=>'Middle Name is required to be entered',
             'surname.required'=>'Surname is required to be entered',
             'name.alpha'=>'The Name may only contain alphabets',
             'allergies.required'=>'Please enter know allergies.Enter Not known otherwise.',
-            'phoneprimary.required'=>'Primary Phone Number is required (enter 0000000000) if not known',
+            'phoneprimary.required'=>'Primary Phone Number is compulsory',
             'phoneprimary.digits'=>'Phone number needs to contain 10 digits',
-            'phoneprimary.unique'=>'Patient with this phone number is already registered',
-            'phoneprimary.unique'=>'This Phone Number is already registered.',
+            //'phoneprimary.unique'=>'Patient with this phone number is already registered',
             'dob.date'=>'The Date of Birth should be in mm/dd/yyyy format.',
             'dob.before'=>'The Date of Birth cannot be later than the date today.'
             ]);
@@ -147,6 +161,9 @@ class PatientController extends Controller
         $patient->phonealternate = $request->phonealternate;
         $patient->email = $request->email;
         $patient->address = Str::upper($request->address);
+        $patient->patientstate = Str::upper($request->patientstate);
+        $patient->patientcity = Str::upper($request->patientcity);
+        $patient->patientpin = Str::upper($request->patientpin);
         $patient->allergies = Str::upper($request->allergies);
         $patient->bloodgroup = $request->bloodgroup;
         $patient->patientcode = rand(1000,9999);
