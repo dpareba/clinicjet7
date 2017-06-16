@@ -39,7 +39,7 @@ Add Consultation for Patient Visit
 					@if ($patient->dob != "1900-01-01 00:00:00")
 					<span class="badge bg-gray">Patient Age: {{$patient->dob->diff(Carbon::now())->format('%y Years, %m Months and %d Days')}}</span>
 					@else
-					<span class="badge bg-gray">Patient Age: Date of Birth Not Provided</span>
+					<span class="badge bg-maroon">Patient Age: Date of Birth Not Provided</span>
 					@endif 
 					@endif
 				{{-- @if ($patient->dob != "1900-01-01 00:00:00")
