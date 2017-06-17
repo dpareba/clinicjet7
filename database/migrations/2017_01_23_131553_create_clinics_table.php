@@ -38,6 +38,7 @@ class CreateClinicsTable extends Migration
             $table->tinyInteger('margin_header')->default(0)->unsigned();
             $table->tinyInteger('margin_footer')->default(0)->unsigned();
             $table->tinyInteger('font_size')->default(12)->unsigned();
+            $table->string('pageformat')->default('A4');
             $table->timestamps();
         });
     }

@@ -9,6 +9,7 @@ use App\Clinic;
 use Session;
 use PDF;
 use App\Visit;
+use App\Pageformat;
 
 class PrintController extends Controller
 {
@@ -23,7 +24,8 @@ class PrintController extends Controller
     public function index()
     {
         $clinic = Clinic::where(['cliniccode'=>Session::get('cliniccode')])->first();
-        return view('print.settings')->withClinic($clinic);
+        $pageformats = Pageformat::all();
+        return view('print.settings')->withClinic($clinic)->withPageformats($pageformats);
     }
 
     /**
@@ -44,11 +46,13 @@ class PrintController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request);
         $this->validate($request,[
             'margin_top'=>'required|integer|between:0,10',
             'margin_bottom'=>'required|digits_between:0,10',
             // 'margin_right'=>'required|integer',
-            // 'margin_left'=>'required|integer'
+            // 'margin_left'=>'required|integer',
+            'pageformat'=>'required'
             ],[
             'margin_top.required'=>'Top margin value cannot be blank',
             'margin_top.digits_between'=>'Value should be an integer between 0 and 10',
@@ -68,6 +72,7 @@ class PrintController extends Controller
         $clinic->margin_bottom = $request->margin_bottom;
         // $clinic->margin_left = $request->margin_left;
         // $clinic->margin_right = $request->margin_right;
+        $clinic->pageformat = $request->pageformat;
         $clinic->save();
 
         Session::flash('message','Success!!');
@@ -86,8 +91,12 @@ class PrintController extends Controller
             'title'=> 'Laravel mPDF',
             'show_watermark'=> false,
             'margin_header'=> 10,
-            'default_font_size'=> '10',
+            'default_font_size'=> '9',
             'default_font'=> 'sans-serif',
+            //'default_font'=> 'times',
+            //'default_font'=> 'arial',
+            //'default_font'=> 'dejavu-serif',
+            'format'=> $clinic->pageformat,
             'margin_top' => $clinic->margin_top*10,
             'margin_bottom' => $clinic->margin_bottom*10,
             'margin_left'=> $clinic->margin_left*10,

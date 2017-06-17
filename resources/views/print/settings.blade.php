@@ -19,18 +19,29 @@ Edit Print Settings
 				{{csrf_field()}}
 				<div class="box-body">
 					<div class="row">
-						<div class="col-md-6 col-xs-12 text-center">
+						<div class="col-md-4 col-xs-12 text-center">
 							<div class="form-group {{ $errors->has('margin_top')?'has-error':''}}">
 								<label for="margin_top">Margin Top(in centimeters)</label>
 								<input type="text" id="margin_top" name="margin_top" class="form-control text-center" value="{{$clinic->margin_top}}">
 								<span class="help-block">{{$errors->first('margin_top')}}</span>
 							</div>
 						</div>
-						<div class="col-md-6 col-xs-12 text-center">
+						<div class="col-md-4 col-xs-12 text-center">
 							<div class="form-group {{ $errors->has('margin_bottom')?'has-error':''}}">
 								<label for="margin_bottom">Margin Bottom(in centimeters)</label>
 								<input type="text" id="margin_bottom" name="margin_bottom" class="form-control text-center" value="{{$clinic->margin_bottom}}">
 								<span class="help-block">{{$errors->first('margin_bottom')}}</span>
+							</div>
+						</div>
+						<div class="col-md-4 col-xs-12 text-center">
+							<div class="form-group {{ $errors->has('pageformat')?'has-error':''}}">
+								<label for="pageformat">Page Format</label>
+								<select name="pageformat" id="pageformat" class="form-control" required="">
+									@foreach ($pageformats as $pageformat)
+										<option value="{{$pageformat->pageformat}}" {{$pageformat->pageformat == $clinic->pageformat ? 'selected="selected"':''}}>{{$pageformat->pageformat}}</option>
+									@endforeach
+								</select>
+								<span class="help-block">{{$errors->first('pageformat')}}</span>
 							</div>
 						</div>
 						{{-- <div class="col-md-3 col-xs-12 text-center">
